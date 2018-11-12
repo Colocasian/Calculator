@@ -26,16 +26,27 @@ string infixToPostfix(string &infix)
 		else if (infix[i] >= '0' && infix[i] <= '9')
 		{
 			ans += '|';
-			while (infix[i] == '.' || (infix[i] >= '0' && infix[i] <= '9'))
-				ans += infix[i++];
+			while (infix[i] == '.' || (infix[i] >= '0' && infix[i] <= '9') || infix[i] == '_')
+			{
+				if (infix[i] != '_')
+					ans += infix[i];
+				i++;
+			}
 			i--;
 			ans += '|';
 		}
 		else if (infix[i] == '*' || infix[i] == '/' || infix[i] == '%')
-			yolo.push(infix[i]);
-		else if (infix[i] == '+' || infix[i] == '-')
 		{
 			while (yolo.top() == '*' || yolo.top() == '/' || yolo.top() == '%')
+			{
+				ans += yolo.top();
+				yolo.pop();
+			}
+			yolo.push(infix[i]);
+		}
+		else if (infix[i] == '+' || infix[i] == '-')
+		{
+			while (yolo.top() == '*' || yolo.top() == '/' || yolo.top() == '%' || yolo.top() == '+' || yolo.top() == '-')
 			{
 				ans += yolo.top();
 				yolo.pop();
@@ -66,7 +77,7 @@ double calculate(string postfix)
 		}
 		else
 		{
-			int b = regis.top();
+			double b = regis.top();
 			regis.pop();
 			switch (postfix[i])
 			{
@@ -106,6 +117,6 @@ int main()
 			break;
 		string post = infixToPostfix(exp);
 		cout << post << endl;
-		cout << "ANSWER: " << calculate(post) << endl;
+		cout << calculate(post) << endl;
 	}
 }
