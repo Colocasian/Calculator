@@ -5,3 +5,4 @@ Converts an expression to postfix and calculates result.
 - [ ] Cannot parse numbers like '-2' or '+5'
 - [ ] Still not implemented error finding in `infixToPostfix()` function
 - [ ] Many more still to be found...
+- [x] just want a tick
